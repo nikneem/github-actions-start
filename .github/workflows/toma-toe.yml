@@ -20,4 +20,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bicep-templates
-          path: infrastructure/*.json
+          path: deployment/*.json
