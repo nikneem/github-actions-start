@@ -40,6 +40,11 @@ jobs:
         with:
           azcliversion: 2.23.0
           inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json
+      - name: Deploy Infrastructure
+        uses: Azure/cli@1.0.4
+        with:
+          azcliversion: 2.23.0
+          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/trafficmgr.json
 
   infrastructure-incremental-prod:
     needs: infrastructure-incremental-test
