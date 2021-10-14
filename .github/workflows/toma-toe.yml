@@ -34,9 +34,9 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_TEMP }}
+          creds: ${{ secrets.AZURE_TEST }}
       - name: Deploy Infrastructure
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/parameters.dev.json
+          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json
