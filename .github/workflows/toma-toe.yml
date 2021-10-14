@@ -39,12 +39,12 @@ jobs:
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json
+          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json
       - name: Deploy Infrastructure
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=us
+          inlineScript: az deployment sub create --name america --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=us
       - name: Traffic Manager
         uses: Azure/cli@1.0.4
         with:
