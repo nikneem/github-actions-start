@@ -1,14 +1,13 @@
 targetScope = 'subscription'
 
-param systemName string = 'tomatoe'
-
-@allowed([
-  'dev'
-  'test'
-  'acc'
-  'prod'
-])
+param systemName string
 param environmentName string
+@allowed([
+  'we' // West europe
+  'us' // East US (1)
+  'asi' // East Japan
+])
+param locationAbbriviation string
 
 resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: '${systemName}-${environmentName}'
