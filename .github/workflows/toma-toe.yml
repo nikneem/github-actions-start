@@ -35,16 +35,21 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_TEST }}
-      - name: Deploy Infrastructure
+      - name: Deploy Europe
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json
-      - name: Deploy Infrastructure
+          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=we
+      - name: Deploy United States
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
           inlineScript: az deployment sub create --name america --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=us
+      - name: Deploy Asia
+        uses: Azure/cli@1.0.4
+        with:
+          azcliversion: 2.23.0
+          inlineScript: az deployment sub create --name asia --location eastasia --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=asi
       - name: Traffic Manager
         uses: Azure/cli@1.0.4
         with:
@@ -64,11 +69,21 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_TEST }}
-      - name: Deploy Infrastructure
+      - name: Deploy Europe
         uses: Azure/cli@1.0.4
         with:
           azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json
+          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=we
+      - name: Deploy United States
+        uses: Azure/cli@1.0.4
+        with:
+          azcliversion: 2.23.0
+          inlineScript: az deployment sub create --name america --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=us
+      - name: Deploy Asia
+        uses: Azure/cli@1.0.4
+        with:
+          azcliversion: 2.23.0
+          inlineScript: az deployment sub create --name asia --location eastasia --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=asi
       - name: Traffic Manager
         uses: Azure/cli@1.0.4
         with:
