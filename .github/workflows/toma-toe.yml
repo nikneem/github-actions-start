@@ -23,7 +23,8 @@ jobs:
           path: deployment/*.json
 
   infrastructure-incremental-test:
-    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@f3819cb6681bb7b162241b843e26b913b8c9a64b
+    needs: publish-bicep
+    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@0167d08e1a3a89b9890d081d23408e71a83b23c4
     with:
       environment: test
     secrets:
@@ -31,7 +32,7 @@ jobs:
 
   infrastructure-incremental-prod:
     needs: infrastructure-incremental-test
-    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@f3819cb6681bb7b162241b843e26b913b8c9a64b
+    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@0167d08e1a3a89b9890d081d23408e71a83b23c4
     with:
       environment: prod
     secrets:
