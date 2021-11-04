@@ -1,7 +1,6 @@
 name: Toma Toe Workflow
 on: [push]
 
-
 jobs:
   publish-bicep:
     runs-on: ubuntu-latest
@@ -26,67 +25,17 @@ jobs:
   infrastructure-incremental-test:
     needs: publish-bicep
     runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: bicep-templates
-          path: ./infrastructure
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_TEST }}
-      - name: Deploy Europe
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=we
-      - name: Deploy United States
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name america --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=us
-      - name: Deploy Asia
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name asia --location eastasia --template-file ./infrastructure/main.json --parameters ./infrastructure/test.parameters.json --parameters locationAbbriviation=asi
-      - name: Traffic Manager
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/trafficmgr.json --parameters ./infrastructure/test.parameters.json
+    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@v1
+    with:
+      environment: test
+    secrets:
+      azure-login: ${{ secrets.AZURE_TEST }}
 
   infrastructure-incremental-prod:
     needs: infrastructure-incremental-test
     runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: bicep-templates
-          path: ./infrastructure
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_TEST }}
-      - name: Deploy Europe
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name europe --location westeurope --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=we
-      - name: Deploy United States
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name america --location westus --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=us
-      - name: Deploy Asia
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --name asia --location eastasia --template-file ./infrastructure/main.json --parameters ./infrastructure/prod.parameters.json --parameters locationAbbriviation=asi
-      - name: Traffic Manager
-        uses: Azure/cli@1.0.4
-        with:
-          azcliversion: 2.23.0
-          inlineScript: az deployment sub create --location westeurope --template-file ./infrastructure/trafficmgr.json --parameters ./infrastructure/prod.parameters.json
+    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@v1
+    with:
+      environment: prod
+    secrets:
+      azure-login: ${{ secrets.AZURE_PROD }}
