@@ -24,7 +24,7 @@ jobs:
 
   infrastructure-incremental-test:
     needs: publish-bicep
-    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@0167d08e1a3a89b9890d081d23408e71a83b23c4
+    uses: AzureIaCBook/book-templates/blob/main/Chapter%2008/.github/workflows/deployment.yml@2bffd959837cc5336aab83d4d5e4fc74b66e6d9a
     with:
       environment: test
     secrets:
@@ -32,7 +32,7 @@ jobs:
 
   infrastructure-incremental-prod:
     needs: infrastructure-incremental-test
-    uses: nikneem/github-actions-start/.github/workflows/deployment.yml@0167d08e1a3a89b9890d081d23408e71a83b23c4
+    uses: AzureIaCBook/book-templates/blob/main/Chapter%2008/.github/workflows/deployment.yml@2bffd959837cc5336aab83d4d5e4fc74b66e6d9a
     with:
       environment: prod
     secrets:
