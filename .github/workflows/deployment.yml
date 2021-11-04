@@ -12,7 +12,6 @@ on:
 
 jobs:
   infrastructure-incremental:
-    needs: publish-bicep
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
