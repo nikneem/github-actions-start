@@ -24,7 +24,6 @@ jobs:
 
   infrastructure-incremental-test:
     needs: publish-bicep
-    runs-on: ubuntu-latest
     uses: nikneem/github-actions-start/.github/workflows/deployment.yml@f3819cb6681bb7b162241b843e26b913b8c9a64b
     with:
       environment: test
@@ -33,7 +32,6 @@ jobs:
 
   infrastructure-incremental-prod:
     needs: infrastructure-incremental-test
-    runs-on: ubuntu-latest
     uses: nikneem/github-actions-start/.github/workflows/deployment.yml@f3819cb6681bb7b162241b843e26b913b8c9a64b
     with:
       environment: prod
