@@ -23,7 +23,6 @@ jobs:
           path: deployment/*.json
 
   infrastructure-incremental-test:
-    needs: publish-bicep
     uses: nikneem/github-actions-start/.github/workflows/deployment.yml@f3819cb6681bb7b162241b843e26b913b8c9a64b
     with:
       environment: test
